@@ -33,3 +33,20 @@ Down|Pin 3
 Left|Pin 4
 Right|Pin 5
 Reset|Pin 6
+
+## How to Play
+The **snake** is controlled using the button array:
+
+1. Use the arrow buttons to control the snake's movement.
+2. The goal is to eat as much food as possible without crashing into walls or the snake's body.
+3. When the game ends, press the reset button to restart the game.
+
+## Setup and Installation
+1. Wire the components according to the wiring guide.
+2. Install the required libraries:
+- Adafruit GFX Library
+- Max72xxPanel
+3. Upload the provided code to the Arduino Uno.
+
+## License
+This project is open-source and licensed under the MIT License.
