@@ -1,18 +1,23 @@
+// libraries!
 #include <SPI.h>
 #include <Adafruit_GFX.h>
 #include <Max72xxPanel.h>
 
+// pin stuff
 int pinCS = 10;
 int numberOfHorizontalDisplays = 4;
 int numberOfVerticalDisplays = 1;
 
+// matrix initialisation
 Max72xxPanel matrix = Max72xxPanel(pinCS, numberOfHorizontalDisplays, numberOfVerticalDisplays);
 
+// game over message
 String tape = "game over! :(";
 int wait = 50;
 int spacer = 1;
 int width = 5 + spacer;
 
+// snake stuff
 int snakeX[64] = {0};   // snake's X positions
 int snakeY[64] = {0};   // snake's Y positions
 int snakeLength = 3;    // initial snake length
@@ -21,7 +26,7 @@ int direction = 2;      // 0: up, 1: right, 2: down, 3: left
 bool gameRunning = true;
 int snakeLengthModified;
 
-// Button pins
+// button pins
 int buttonUp = 3;
 int buttonDown = 4;
 int buttonLeft = 5;
@@ -32,10 +37,10 @@ int buttonReset = 6;
 unsigned long lastUpdateTime = 0;
 const unsigned long updateInterval = 150; // time interval between updates
 
-bool isDisplayingGameOver = false; // Track if game over message is being displayed
+bool isDisplayingGameOver = false; // track if game over message is being displayed
 int justAte = 1;
-unsigned long lastScrollTime = 0;  // Timing for scrolling the message
-int scrollIndex = 0;               // Current scroll position
+unsigned long lastScrollTime = 0;  // timing for scrolling the message
+int scrollIndex = 0;               // current scroll position
 
 void spawnFood() {
   justAte = 1;
@@ -65,12 +70,11 @@ void setup() {
 }
 
 void resetGame() {
-  snakeLength = 3;      // Reset snake length
-  direction = 2;        // Reset direction to down
-  gameRunning = true;   // Set game running to true
+  snakeLength = 3;
+  direction = 2; 
+  gameRunning = true;
 
-  // Reset snake position
-  for (int i = 0; i < snakeLength; i++) {
+  for (int i = 0; i < snakeLength; i++) {  // reset snake position
     snakeX[i] = i;
     snakeY[i] = 0;
   }
@@ -102,55 +106,52 @@ void updateGame() {
   if (direction == 2) snakeY[0]++;  // down
   if (direction == 3) snakeX[0]--;  // left
 
-  // check boundaries
+  // check edge collision
   if (snakeX[0] < 0 || snakeX[0] >= matrix.width() || snakeY[0] < 0 || snakeY[0] >= matrix.height()) {
-    gameRunning = false; // Game over
+    gameRunning = false;  // end the game
     return;
   }
 
   // check self-collision
   for (int i = 1; i < snakeLength; i++) {
     if (snakeX[0] == snakeX[i] && snakeY[0] == snakeY[i]) {
-      gameRunning = false; // Game over
+      gameRunning = false;  // end the game
       return;
     }
   }
 
-  // Check food collision
+  // check food collision
   if (snakeX[0] == foodX && snakeY[0] == foodY) {
-    snakeLength++;
-    spawnFood();
+    snakeLength++; // add one to snake length
+    spawnFood();  // spawn another food somewhere else
   }
 
   for (int i = 0; i < snakeLength - justAte; i++) {
     matrix.drawPixel(snakeX[i], snakeY[i], HIGH);
   }
-  if (justAte == 1) justAte = 0;
+  if (justAte == 1) justAte = 0; // ranfom fix i had to add to remove a stubborn pixel
 
-  // Draw food
-
-  matrix.drawPixel(foodX, foodY, HIGH); // Food position
-  matrix.write(); // Update the display
+  matrix.drawPixel(foodX, foodY, HIGH); // food position
+  matrix.write(); // update the display
 }
 
 void loop() {
-  // Always check for reset button
-  if (digitalRead(buttonReset) == LOW) { // Check if reset button is pressed
-    resetGame();          // Reset the game state
-    isDisplayingGameOver = false; // Stop the "Game Over" animation
-    scrollIndex = 0;      // Reset scroll animation index
-    delay(500);           // Debounce delay
+  if (digitalRead(buttonReset) == LOW) { // if reset button is pressed
+    resetGame();  // reset game state
+    isDisplayingGameOver = false; // stop the game over animation
+    scrollIndex = 0; // reset scroll animation index
+    delay(500);
     return;
   }
 
   // Handle game over state
   if (!gameRunning) {
     if (!isDisplayingGameOver) {
-      // Reset scrolling animation when game ends
-      isDisplayingGameOver = true; // Start displaying animation
-      scrollIndex = 0;             // Reset animation index
+      // reset scrolling animation when game ends
+      isDisplayingGameOver = true;
+      scrollIndex = 0;
     }
-    displayScrollingGameOverStep(); // Scroll the message step-by-step
+    displayScrollingGameOverStep(); // scroll the message step-by-step
     return;
   }
 
@@ -165,30 +166,28 @@ void loop() {
   }
 }
 
-
 void displayScrollingGameOverStep() {
   if (scrollIndex >= width * tape.length() + matrix.width() - 1 - spacer) {
-    scrollIndex = 0;          // Reset animation index
-    isDisplayingGameOver = false; // Animation finished, ready for next reset
-    return;                   // Stop further updates until re-triggered
+    scrollIndex = 0;  // reset animation index
+    isDisplayingGameOver = false;  // animation finished, ready for next reset
+    return;  // stop further updates until re-triggered
   }
 
   matrix.fillScreen(LOW); // Clear the screen
 
-  int letter = scrollIndex / width;                   // Determine which letter to display
-  int x = (matrix.width() - 1) - scrollIndex % width; // X position of the character
-  int y = (matrix.height() - 8) / 2;                  // Y position (centered vertically)
+  int letter = scrollIndex / width;  // determine which letter to display
+  int x = (matrix.width() - 1) - scrollIndex % width; // x position of the character
+  int y = (matrix.height() - 8) / 2;  // y position (centered vertically)
 
   while (x + width - spacer >= 0 && letter >= 0) {
     if (letter < tape.length()) {
-      matrix.drawChar(x, y, tape[letter], HIGH, LOW, 1); // Draw character
+      matrix.drawChar(x, y, tape[letter], HIGH, LOW, 1); // draw character
     }
     letter--;
-    x -= width; // Move to the next character
+    x -= width; // move to the next character
   }
 
-  matrix.write(); // Update the display
-  scrollIndex++;  // Increment scroll position
-  delay(wait);    // Small delay for smooth scrolling
+  matrix.write(); // update the display
+  scrollIndex++;  // increment scroll position
+  delay(wait);    // small delay for smooth scrolling
 }
-
