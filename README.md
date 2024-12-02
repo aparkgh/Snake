@@ -6,10 +6,10 @@ This project recreates the classic Snake Game using an Arduino Uno R3, a 2x4 but
 
 ## Setup and Installation
 1. Wire the components according to the wiring guide.
-2. Install the required libraries:
+2. Install the Arduino IDE and the required libraries:
    - Adafruit GFX Library
    - Max72xxPanel
-3. Upload the provided file to the Arduino Uno.
+4. Upload the provided file to the Arduino Uno.
 
 ## How to Play
 The **snake** is controlled using the button array:
