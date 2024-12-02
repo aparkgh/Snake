@@ -10,7 +10,7 @@ Component | Quantity
 :-:|:-:
 Arduino Uno R3|1
 2x4 Button Array|1
-8x24 LED Matrix|1
+8x24 MAX7219 LED Matrix|1
 
 ### Libraries Used
 1. [Adafruit GFX Library](https://github.com/adafruit/Adafruit-GFX-Library)
