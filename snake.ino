@@ -91,7 +91,6 @@ void checkButtons() {
   if (digitalRead(buttonDown) == LOW && direction != 0) direction = 2;
   if (digitalRead(buttonLeft) == LOW && direction != 1) direction = 3;
   if (digitalRead(buttonRight) == LOW && direction != 3) direction = 1;
-  // if (digitalRead(buttonReset) == LOW) resetGame();
 }
 
 // updates snake's position
