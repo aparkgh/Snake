@@ -1,4 +1,4 @@
-# Snake
+# Snake in Arduino
 
 ## Overview
 
@@ -19,6 +19,7 @@ The **snake** is controlled using the button array:
 3. Press the reset button to restart the game at any point.
 
 ## Components
+
 ### Hardware
 Component | Quantity
 :-:|:-:
@@ -27,6 +28,7 @@ Arduino Uno R3|1
 8x24 MAX7219 LED Matrix|1
 
 ## Wiring Guide
+
 ### LED Matrix
 Pin | Connection
 :-:|:-:
@@ -35,6 +37,7 @@ GND|GND
 DIN|Pin 11
 CS|Pin 10
 CLK|Pin 13
+
 ### Button Array
 Button | Connection
 :-:|:-:
