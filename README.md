@@ -16,7 +16,7 @@ The **snake** is controlled using the button array:
 
 1. Use the arrow buttons to control the snake's movement.
 2. The goal is to eat as much food as possible without crashing into walls or the snake's body.
-3. When the game ends, press the reset button to restart the game.
+3. Press the reset button to restart the game at any point.
 
 ## Components
 ### Hardware
