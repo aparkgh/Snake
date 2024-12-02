@@ -1,4 +1,4 @@
-# Snake Game on Arduino
+# Snake
 
 ## Overview
 
