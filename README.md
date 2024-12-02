@@ -18,8 +18,18 @@ Arduino Uno R3|1
 
 ## Wiring Guide
 ### LED Matrix
-Component | Quantity
+Pin | Connection
 :-:|:-:
-Arduino Uno R3|1
-2x4 Button Array|1
-8x24 LED Matrix|1
+VCC|5V
+GND|GND
+DIN|Pin 11
+CS|Pin 10
+CLK|Pin 13
+### Button Array
+Button | Connection
+:-:|:-:
+Up|5V
+Down|Pin 3
+Left|Pin 4
+Right|Pin 5
+Reset|Pin 6
