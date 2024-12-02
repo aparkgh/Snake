@@ -44,8 +44,8 @@ The **snake** is controlled using the button array:
 ## Setup and Installation
 1. Wire the components according to the wiring guide.
 2. Install the required libraries:
-- Adafruit GFX Library
-- Max72xxPanel
+   - Adafruit GFX Library
+   - Max72xxPanel
 3. Upload the provided code to the Arduino Uno.
 
 ## License
