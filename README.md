@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project recreates the classic game we all know and love- **Snake**! Using an Arduino Uno R3, a 2x4 button array, and an 8x24 LED matrix, the game displays on the LED matrix, and the user can control the snake's direction using the button array.
+This project recreates the classic game we all know and love- 🐍**Snake**! Using an Arduino Uno R3, a 2x4 button array, and an 8x24 LED matrix, the game displays on the LED matrix, and the user can control the snake's direction using the button array.
 
 ## Setup and Installation
 1. Wire the components according to the wiring guide.
