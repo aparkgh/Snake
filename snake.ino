@@ -75,6 +75,7 @@ void setup() {
   resetGame(); // initialising the game
 }
 
+// resets the game
 void resetGame() {
   snakeLength = 3;
   nextDirection = 1; 
@@ -93,14 +94,13 @@ void resetGame() {
 
 // checks for button inputs
 void checkButtons() {
-  // Read the current button states
+  // current button states
   bool currentButtonUp = digitalRead(buttonUp);
   bool currentButtonDown = digitalRead(buttonDown);
   bool currentButtonLeft = digitalRead(buttonLeft);
   bool currentButtonRight = digitalRead(buttonRight);
   bool currentButtonReset = digitalRead(buttonReset);
 
-  // Trigger actions only on state change from HIGH to LOW (button press)
   if (currentButtonUp == LOW && lastButtonUp == HIGH) {
     if (direction != 2 && direction != 0) nextDirection = 0;  // up
   }
@@ -114,7 +114,7 @@ void checkButtons() {
     if (direction != 3 && direction != 1) nextDirection = 1;  // right
   }
 
-  // Update the last button states for the next check
+  // update last button states
   lastButtonUp = currentButtonUp;
   lastButtonDown = currentButtonDown;
   lastButtonLeft = currentButtonLeft;
@@ -172,7 +172,6 @@ void loop() {
     return;
   }
 
-  // Handle game over state
   if (!gameRunning) {
     if (!isDisplayingGameOver) {
       // reset scrolling animation when game ends
@@ -183,10 +182,8 @@ void loop() {
     return;
   }
 
-  // Continuously check other buttons
   checkButtons();
 
-  // Update the game at regular intervals
   unsigned long currentTime = millis();
   if (currentTime - lastUpdateTime >= updateInterval) {
     lastUpdateTime = currentTime;
@@ -201,7 +198,7 @@ void displayScrollingGameOverStep() {
     return;  // stop further updates until re-triggered
   }
 
-  matrix.fillScreen(LOW); // Clear the screen
+  matrix.fillScreen(LOW); // clear the screen
 
   int letter = scrollIndex / width;  // determine which letter to display
   int x = (matrix.width() - 1) - scrollIndex % width; // x position of the character
