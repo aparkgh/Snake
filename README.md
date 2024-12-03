@@ -12,11 +12,9 @@ This project recreates the classic Snake Game using an Arduino Uno R3, a 2x4 but
 4. Upload the provided file to the Arduino Uno.
 
 ## How to Play
-The **snake** is controlled using the button array:
-
-1. Use the arrow buttons to control the snake's movement.
-2. The goal is to eat as much food as possible without crashing into walls or the snake's body.
-3. Press the reset button to restart the game at any point.
+1. Use the **directional buttons** to control the snake's movement.
+2. The goal is to eat **as much** food as possible **without** crashing into walls or the snake's body.
+3. Press the **reset** button to restart the game at any point.
 
 ## Components
 
