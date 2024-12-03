@@ -71,11 +71,11 @@ void setup() {
 
 void resetGame() {
   snakeLength = 3;
-  direction = 2; 
+  direction = 1; 
   gameRunning = true;
 
   for (int i = 0; i < snakeLength; i++) {  // reset snake position
-    snakeX[i] = i;
+    snakeX[i] = 0;
     snakeY[i] = 0;
   }
 
