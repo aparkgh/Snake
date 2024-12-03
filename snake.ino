@@ -25,13 +25,19 @@ int foodX, foodY;       // food's position
 int direction = 2;      // 0: up, 1: right, 2: down, 3: left
 bool gameRunning = true;
 int snakeLengthModified;
+int nextDirection = 1;
 
-// button pins
+// button pins and states
 int buttonUp = 3;
 int buttonDown = 4;
 int buttonLeft = 5;
 int buttonRight = 2;
 int buttonReset = 6;
+bool lastButtonUp = HIGH;
+bool lastButtonDown = HIGH;
+bool lastButtonLeft = HIGH;
+bool lastButtonRight = HIGH;
+bool lastButtonReset = HIGH;
 
 // timing variables
 unsigned long lastUpdateTime = 0;
@@ -71,7 +77,7 @@ void setup() {
 
 void resetGame() {
   snakeLength = 3;
-  direction = 1; 
+  nextDirection = 1; 
   gameRunning = true;
 
   for (int i = 0; i < snakeLength; i++) {  // reset snake position
@@ -87,14 +93,37 @@ void resetGame() {
 
 // checks for button inputs
 void checkButtons() {
-  if (digitalRead(buttonUp) == LOW && direction != 2) direction = 0;
-  if (digitalRead(buttonDown) == LOW && direction != 0) direction = 2;
-  if (digitalRead(buttonLeft) == LOW && direction != 1) direction = 3;
-  if (digitalRead(buttonRight) == LOW && direction != 3) direction = 1;
+  // Read the current button states
+  bool currentButtonUp = digitalRead(buttonUp);
+  bool currentButtonDown = digitalRead(buttonDown);
+  bool currentButtonLeft = digitalRead(buttonLeft);
+  bool currentButtonRight = digitalRead(buttonRight);
+  bool currentButtonReset = digitalRead(buttonReset);
+
+  // Trigger actions only on state change from HIGH to LOW (button press)
+  if (currentButtonUp == LOW && lastButtonUp == HIGH) {
+    if (direction != 2 && direction != 0) nextDirection = 0;  // up
+  }
+  if (currentButtonDown == LOW && lastButtonDown == HIGH) {
+    if (direction != 0 && direction != 2) nextDirection = 2;  // down
+  }
+  if (currentButtonLeft == LOW && lastButtonLeft == HIGH) {
+    if (direction != 1 && direction != 3) nextDirection = 3;  // left
+  }
+  if (currentButtonRight == LOW && lastButtonRight == HIGH) {
+    if (direction != 3 && direction != 1) nextDirection = 1;  // right
+  }
+
+  // Update the last button states for the next check
+  lastButtonUp = currentButtonUp;
+  lastButtonDown = currentButtonDown;
+  lastButtonLeft = currentButtonLeft;
+  lastButtonRight = currentButtonRight;
 }
 
 // updates snake's position
 void updateGame() {
+  direction = nextDirection;
   matrix.fillScreen(LOW);
   for (int i = snakeLength - 1; i > 0; i--) {
     snakeX[i] = snakeX[i - 1];
