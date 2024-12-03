@@ -128,7 +128,7 @@ void updateGame() {
   for (int i = 0; i < snakeLength - justAte; i++) {
     matrix.drawPixel(snakeX[i], snakeY[i], HIGH);
   }
-  if (justAte == 1) justAte = 0; // ranfom fix i had to add to remove a stubborn pixel
+  if (justAte == 1) justAte = 0; // fix i had to add to remove a stubborn pixel
 
   matrix.drawPixel(foodX, foodY, HIGH); // food position
   matrix.write(); // update the display
