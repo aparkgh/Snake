@@ -9,7 +9,7 @@ This project recreates the classic game we all know and love: 🐍**Snake**! Usi
 2. Install the **Arduino IDE** and the required libraries:
    - [Adafruit GFX Library](https://github.com/adafruit/Adafruit-GFX-Library)
    - [Max72xxPanel](https://github.com/markruys/arduino-Max72xxPanel?tab=readme-ov-file)
-4. Open `snake.ino` in the IDE and upload the code to the **Arduino Uno**.
+4. Open `snake.ino` in the **Arduino IDE** and upload the code to the **Arduino Uno**.
 
 ## How to Play
 1. Use the **directional buttons** to control the snake's movement.
